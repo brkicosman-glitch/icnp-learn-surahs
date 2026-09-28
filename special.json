@@ -1,0 +1,36 @@
+{
+  "special": [
+    {
+      "id": "fatiha",
+      "name": "El-Fatiha",
+      "type": "surah",
+      "surah": 1
+    },
+    {
+      "id": "ayatul-kursi",
+      "name": "Ajetul-Kursijj",
+      "type": "ayah",
+      "surah": 2,
+      "ayah": 255
+    },
+    {
+      "id": "alim",
+      "name": "Elif-Lam-Mim",
+      "type": "ayah",
+      "surah": 2,
+      "ayah": 1
+    },
+    {
+      "id": "kunut",
+      "name": "Kunut-dova",
+      "type": "dua"
+    },
+    {
+      "id": "duha-nas",
+      "name": "Ed-Duha do En-Nas",
+      "type": "range",
+      "from": 93,
+      "to": 114
+    }
+  ]
+}
