@@ -166,7 +166,8 @@ async function init(){
 const r=await fetch('data.json');
 
 state.data=await r.json();
-
+const sr=await fetch('special.json');
+state.special=await sr.json();
 fillSurahs();
 
 selectSurah();
