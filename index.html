@@ -114,6 +114,7 @@ font-size:.8rem;padding:0 16px 25px
 <select id="surah" class="select"></select>
 
 <select id="ayah" class="select"></select>
+  <select id="special" class="select"></select>
 
 <button id="start">Start / Restart</button>
 
@@ -179,6 +180,7 @@ render();
 function fillSurahs(){
     const allowedIds = [1,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114
 ];
+  fillSpecial();
   
 
   $('surah').innerHTML = state.data.surahs
@@ -196,6 +198,12 @@ $('surah').value=state.surah;
 
 }
 
+  function fillSpecial(){
+  const items = state.special?.special || [];
+  $('#special').innerHTML = items.map(x =>
+    `<option value="${x.id}">${x.name}</option>`
+  ).join('');
+}
 function selectSurah(){
 
 const s=getS();
