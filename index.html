@@ -1,9 +1,9 @@
-  <!doctype html>  `  `
+  <!doctype html>  `  
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#176b4d">  
+<meta name="theme-color" content="#176b4d">
 <title>ICNP • Learn the Surahs by Heart</title>
 
 <style>
@@ -166,8 +166,6 @@ async function init(){
 const r=await fetch('data.json');
 
 state.data=await r.json();
-  const s = await fetch('special.json');
-state.special = await s.json();
 
 fillSurahs();
 
@@ -176,35 +174,13 @@ selectSurah();
 render();
 
 }
-  function selectSurah(){
 
-const selected = $('surah').value;
-
-if(selected.startsWith('special:')){
-  $('ayah').innerHTML = '<option value="1">Posebni sadržaj</option>';
-  state.surah = selected;
-  state.ayah = 1;
-  render();
-  return;
-}
-
-const s=getS();
-
-$('ayah').innerHTML=
+function fillSurahs(){
     const allowedIds = [1,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114
 ];
-  const special = state.special?.special || [];
   
 
-const special = state.special?.special || [];
-
-$('surah').innerHTML =
-  special.map(s => `
-    <option value="special:${s.id}">
-      ⭐ ${s.name}
-    </option>
-  `).join('') +
-  state.data.surahs
+  $('surah').innerHTML = state.data.surahs
     .filter(s => allowedIds.includes(Number(s.id)))
     .map(s => `
       <option value="${s.id}">
