@@ -166,6 +166,8 @@ async function init(){
 const r=await fetch('data.json');
 
 state.data=await r.json();
+  const s = await fetch('special.json');
+state.special = await s.json();
 
 fillSurahs();
 
@@ -178,9 +180,18 @@ render();
 function fillSurahs(){
     const allowedIds = [1,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114
 ];
+  const special = state.special?.special || [];
   
 
-  $('surah').innerHTML = state.data.surahs
+const special = state.special?.special || [];
+
+$('surah').innerHTML =
+  special.map(s => `
+    <option value="special:${s.id}">
+      ⭐ ${s.name}
+    </option>
+  `).join('') +
+  state.data.surahs
     .filter(s => allowedIds.includes(Number(s.id)))
     .map(s => `
       <option value="${s.id}">
