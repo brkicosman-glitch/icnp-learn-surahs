@@ -176,6 +176,20 @@ render();
 }
 
 function fillSurahs(){
+  const allowedIds = [
+    1,
+    93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114
+  ];
+
+  $('surah').innerHTML = state.data.surahs
+    .filter(s => allowedIds.includes(Number(s.id)))
+    .map(s => `
+      <option value="${s.id}">
+        ${s.id}. ${s.name} — ${s.arabicName}
+      </option>
+    `)
+    .join('');
+}
 
 $('surah').innerHTML=
 state.data.surahs.map(s=>
