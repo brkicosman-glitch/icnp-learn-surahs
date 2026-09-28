@@ -176,8 +176,21 @@ selectSurah();
 render();
 
 }
+  function selectSurah(){
 
-function fillSurahs(){
+const selected = $('surah').value;
+
+if(selected.startsWith('special:')){
+  $('ayah').innerHTML = '<option value="1">Posebni sadržaj</option>';
+  state.surah = selected;
+  state.ayah = 1;
+  render();
+  return;
+}
+
+const s=getS();
+
+$('ayah').innerHTML=
     const allowedIds = [1,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114
 ];
   const special = state.special?.special || [];
