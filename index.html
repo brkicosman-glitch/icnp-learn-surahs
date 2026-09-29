@@ -208,7 +208,20 @@ $('#surah').value = state.surah;
 
 }
 
-function selectSurah(){
+function fillSpecial(){
+  const el = document.getElementById('special');
+  const items = state.special.special;
+
+  if (!el || !items) return;
+
+  let html = '';
+
+  for (const x of items) {
+    html += '<option value="' + x.id + '">' + x.name + '</option>';
+  }
+
+  el.innerHTML = html;
+}
 
 const s=getS();
 
