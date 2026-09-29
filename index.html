@@ -495,17 +495,13 @@ render();
 };
 
 $('next').onclick=()=>{
-
-if(state.ayah<s.ayahs.length){
-
-state.ayah++;
-selectSurah();
-render();
-
-}
-
+    if(state.ayah < getS().ayahs.length){
+        state.ayah++;
+        selectSurah();
+        render();
+        play(getS().ayahs[state.ayah-1]);
+    }
 };
-
 document.querySelectorAll('[data-speed]')
 .forEach(b=>
 
