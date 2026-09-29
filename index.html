@@ -297,11 +297,14 @@ function play(a){
   let pauseBtn = document.getElementById('pauseBtn');
 
   if(!pauseBtn){
+
     const listenBtn = [...document.querySelectorAll('button')]
       .find(b => b.textContent.includes('Listen'));
 
     if(listenBtn){
+
       pauseBtn = document.createElement('button');
+
       pauseBtn.id = 'pauseBtn';
       pauseBtn.textContent = '⏸ Pause';
       pauseBtn.className = listenBtn.className;
@@ -313,7 +316,7 @@ function play(a){
         if(state.audio.paused){
           state.audio.play();
           pauseBtn.textContent = '⏸ Pause';
-        } else {
+        }else{
           state.audio.pause();
           pauseBtn.textContent = '▶ Continue';
         }
@@ -330,11 +333,18 @@ function play(a){
       pauseBtn.remove();
     }
 
-    
+    if(state.repeat > 0){
+      state.repeat--;
+      play(a);
+    }
+
+  };
 
   x.onerror = () => {
+
     console.error('Audio error:', x.error);
     alert('Audio se ne može učitati.');
+
   };
 
   x.play()
@@ -347,156 +357,199 @@ function play(a){
     });
 
 }
+
+
 function mark(){
 
-const k=`${state.surah}:${state.ayah}`;
+  const k=`${state.surah}:${state.ayah}`;
 
-state.review[k]=(state.review[k]||0)+1;
+  state.review[k]=(state.review[k]||0)+1;
 
-localStorage.setItem(
-'icnp-review',
-JSON.stringify(state.review)
-);
+  localStorage.setItem(
+    'icnp-review',
+    JSON.stringify(state.review)
+  );
 
 }
+
 
 function render(){
 
-if(state.mode==='follow')
-renderFollow();
+  if(state.mode==='follow')
+    renderFollow();
 
-else if(state.mode==='build')
-renderBuild();
+  else if(state.mode==='build')
+    renderBuild();
 
-else
-renderReview();
+  else
+    renderReview();
 
 }
+
 
 function renderFollow(){
 
-const s=getS();
-const a=getA();
+  const s=getS();
+  const a=getA();
 
-mark();
+  mark();
 
-app.innerHTML=`
+  app.innerHTML=`
 
-<div class="ayah">
+  <div class="ayah">
 
-<div class="row">
+    <div class="row">
 
-<span class="num">${a.n}</span>
+      <span class="num">${a.n}</span>
 
-<b>${s.name} • ${s.arabicName}</b>
+      <b>${s.name} • ${s.arabicName}</b>
 
-<span class="small">
-${a.n}/${s.ayahs.length}
-</span>
+      <span class="small">
+        ${a.n}/${s.ayahs.length}
+      </span>
 
-</div>
+    </div>
 
-<div class="arabic">${a.a}</div>
+    <div class="arabic">${a.a}</div>
 
-<div class="translit">${a.t}</div>
+    <div class="translit">${a.t}</div>
 
-<div class="english">${a.e}</div>
+    <div class="english">${a.e}</div>
 
-<div class="controls">
+    <div class="controls">
 
-<button id="listen">▶ Listen</button>
-<button class="alt" id="pause">⏸ Pause</button>
+      <button id="listen">
+        ▶ Listen
+      </button>
 
-<button class="alt" id="repeat">
-🔁 Repeat 3×
-</button>
+      <button class="alt" id="pause">
+        ⏸ Pause
+      </button>
 
-<button class="alt" id="whole">
-▶ Whole Surah
-</button>
+      <button class="alt" id="repeat">
+        🔁 Repeat 3×
+      </button>
 
-<button class="alt" id="prev">
-← Previous
-</button>
+      <button class="alt" id="whole">
+        ▶ Whole Surah
+      </button>
 
-<button class="alt" id="next">
-Next →
-</button>
+      <button class="alt" id="prev">
+        ← Previous
+      </button>
 
-</div>
+      <button class="alt" id="next">
+        Next →
+      </button>
 
-<div class="controls">
+    </div>
 
-<button class="alt" data-speed="1">
-Normal
-</button>
+    <div class="controls">
 
-<button class="alt" data-speed=".75">
-Slower
-</button>
+      <button class="alt" data-speed="1">
+        Normal
+      </button>
 
-<button class="alt" data-speed=".5">
-Slowest
-</button>
+      <button class="alt" data-speed=".75">
+        Slower
+      </button>
 
-</div>
+      <button class="alt" data-speed=".5">
+        Slowest
+      </button>
 
-<div class="progress">
+    </div>
 
-<div class="bar"
-style="width:${Math.round(a.n/s.ayahs.length*100)}%">
-</div>
+    <div class="progress">
 
-</div>
+      <div
+        class="bar"
+        style="width:${Math.round(a.n/s.ayahs.length*100)}%">
+      </div>
 
-</div>
-`;
+    </div>
 
-$('listen').onclick=()=>{
-  state.repeat=0;
-  play(a);
-};
+  </div>
 
-$('pause').onclick=()=>{
-  if(state.audio){
-    state.audio.pause();
-    console.log('Audio paused');
-  }
-};
+  `;
 
-$('repeat').onclick=()=>{
-  state.repeat=2;
-  play(a);
-};
 
-$('whole').onclick=()=>playWhole();
+  $('listen').onclick=()=>{
+
+    state.repeat=0;
+    play(a);
+
+  };
+
+
+  $('pause').onclick=()=>{
+
+    if(state.audio){
+      state.audio.pause();
+      console.log('Audio paused');
+    }
+
+  };
+
+
+  $('repeat').onclick=()=>{
+
+    state.repeat=2;
+    play(a);
+
+  };
+
+
+  $('whole').onclick=()=>playWhole();
+
 
   $('prev').onclick=()=>{
-   
-$('next').onclick=()=>{
-    if(state.ayah < getS().ayahs.length){
-        state.ayah++;
-        selectSurah();
-        render();
-        play(getS().ayahs[state.ayah-1]);
+
+    if(state.ayah > 1){
+
+      state.ayah--;
+
+      selectSurah();
+      render();
+
+      play(getS().ayahs[state.ayah-1]);
+
     }
-};
-document.querySelectorAll('[data-speed]')
-.forEach(b=>
 
-b.onclick=()=>{
+  };
 
-state.speed=+b.dataset.speed;
 
-if(state.audio)
-state.audio.playbackRate=state.speed;
+  $('next').onclick=()=>{
 
-});
+    if(state.ayah < getS().ayahs.length){
+
+      state.ayah++;
+
+      selectSurah();
+      render();
+
+      play(getS().ayahs[state.ayah-1]);
+
+    }
+
+  };
+
+
+  document.querySelectorAll('[data-speed]')
+    .forEach(b=>
+
+      b.onclick=()=>{
+
+        state.speed=+b.dataset.speed;
+
+        if(state.audio)
+          state.audio.playbackRate=state.speed;
+
+      }
+
+    );
 
 }
-
-async function playWhole(){
-
   if(state.audio){
     state.audio.pause();
     state.audio.currentTime = 0;
