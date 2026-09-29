@@ -224,13 +224,15 @@ function selectSurah(){
   $('ayah').value = state.ayah;
 }
 
-function getS(){if(!state.data || !state.data.surahs) return null;
-return state.data.surahs[state.surah-1]
-}
-
 function getS(){
   if(!state.data || !state.data.surahs) return null;
-  return state.data.surahs[state.surah-1];
+  return state.data.surahs[state.surah-1] || null;
+}
+
+function getA(){
+  const s = getS();
+  if(!s || !s.ayahs) return null;
+  return s.ayahs[state.ayah-1] || null;
 }
 
 $('surah').onchange=e=>{
