@@ -211,8 +211,12 @@ function fillSpecial(){
 }
 
 function selectSurah(){
-
   const s = getS();
+
+  if(!s || !s.ayahs){
+    $('ayah').innerHTML = '';
+    return;
+  }
 
   $('ayah').innerHTML =
     s.ayahs.map(a =>
