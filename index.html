@@ -229,8 +229,11 @@ function selectSurah(){
 }
 
 function getS(){
-  if(!state.data || !state.data.surahs) return null;
-  return state.data.surahs[state.surah-1] || null;
+  if(!state.data || !Array.isArray(state.data.surahs)) return null;
+
+  return state.data.surahs.find(
+    s => Number(s.id) === Number(state.surah)
+  ) || null;
 }
 
 function getA(){
