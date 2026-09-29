@@ -293,47 +293,52 @@ return `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${a.g}.mp3`;
 
 function play(a){
 
-if(state.audio){
+  if(state.audio){
+    state.audio.pause();
+    state.audio.currentTime = 0;
+    state.audio = null;
+  }
 
-state.audio.pause();
-state.audio=null;
+  const x = new Audio();
+  state.audio = x;
+
+  x.src = audioUrl(a);
+  x.preload = 'auto';
+  x.playbackRate = state.speed;
+
+  x.onended = () => {
+
+    if(state.repeat > 0){
+
+      state.repeat--;
+      play(a);
+
+    } else if(state.ayah < getS().ayahs.length){
+
+      state.ayah++;
+
+      selectSurah();
+      render();
+
+    }
+
+  };
+
+  x.onerror = () => {
+    console.error('Audio error:', x.error);
+    alert('Audio se ne može učitati.');
+  };
+
+  x.play()
+    .then(() => {
+      console.log('Audio started:', x.src);
+    })
+    .catch(err => {
+      console.error('Audio play error:', err);
+      alert('Pritisni Listen još jednom.');
+    });
 
 }
-
-const x=new Audio(audioUrl(a));
-
-state.audio=x;
-
-x.playbackRate=state.speed;
-
-x.play().catch(()=>
-alert('Tap Listen again to allow audio playback.')
-);
-
-x.onended=()=>{
-
-if(state.repeat>0){
-
-state.repeat--;
-
-play(a);
-
-}
-
-else if(state.ayah<getS().ayahs.length){
-
-state.ayah++;
-
-selectSurah();
-
-render();
-
-}
-
-};
-
-}
-
 function mark(){
 
 const k=`${state.surah}:${state.ayah}`;
