@@ -474,16 +474,7 @@ $('repeat').onclick=()=>{
 $('whole').onclick=()=>playWhole();
 
   $('prev').onclick=()=>{
-    if(state.ayah > 1){
-        state.ayah--;
-        selectSurah();
-        render();
-        play(getS().ayahs[state.ayah-1]);
-    }
-};
-
-
-
+   
 $('next').onclick=()=>{
     if(state.ayah < getS().ayahs.length){
         state.ayah++;
