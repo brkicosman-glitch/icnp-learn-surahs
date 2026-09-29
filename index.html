@@ -332,21 +332,7 @@ function play(a){
       pauseBtn.remove();
     }
 
-    if(state.repeat > 0){
-
-      state.repeat--;
-      play(a);
-
-    } else if(state.ayah < getS().ayahs.length){
-
-      state.ayah++;
-
-      selectSurah();
-      render();
-
-    }
-
-  };
+    
 
   x.onerror = () => {
     console.error('Audio error:', x.error);
