@@ -199,20 +199,6 @@ function fillSurahs(){
   select.value = state.surah;
 }
 
-const allowedIds = Array.from({length: 114}, (_, i) => i + 1);
-
-  document.querySelector("#surah").innerHTML =
-    state.data.surahs
-      .filter(s => allowedIds.includes(Number(s.id)))
-      .map(s => `
-        <option value="${s.id}">
-          ${s.id}. ${s.name} — ${s.arabicName}
-        </option>
-      `)
-      .join("");
-
-  $('#surah').value = state.surah;
-}
 
 function fillSpecial(){
 
