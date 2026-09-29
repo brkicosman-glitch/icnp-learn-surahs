@@ -168,10 +168,15 @@ if(!r.ok) throw new Error('data.json HTTP ' + r.status);
 
 state.data=await r.json();
 
-const sr=await fetch('https://raw.githubusercontent.com/brkicosman-glitch/icnp-learn-surahs/main/special.json');
-if(!sr.ok) throw new Error('special.json HTTP ' + sr.status);
+fillSurahs();
 
-state.special=await sr.json();
+try {
+  const sr=await fetch('special.json');
+  state.special=await sr.json();
+  fillSpecial();
+} catch(e) {
+  console.log('special.json nije učitan');
+}
 
 fillSurahs();
   fillSpecial();
