@@ -291,7 +291,41 @@ function play(a){
   x.preload = 'auto';
   x.playbackRate = state.speed;
 
+  let pauseBtn = document.getElementById('pauseBtn');
+
+  if(!pauseBtn){
+    const listenBtn = [...document.querySelectorAll('button')]
+      .find(b => b.textContent.includes('Listen'));
+
+    if(listenBtn){
+      pauseBtn = document.createElement('button');
+      pauseBtn.id = 'pauseBtn';
+      pauseBtn.textContent = '⏸ Pause';
+      pauseBtn.className = listenBtn.className;
+
+      pauseBtn.onclick = () => {
+
+        if(!state.audio) return;
+
+        if(state.audio.paused){
+          state.audio.play();
+          pauseBtn.textContent = '⏸ Pause';
+        } else {
+          state.audio.pause();
+          pauseBtn.textContent = '▶ Continue';
+        }
+
+      };
+
+      listenBtn.after(pauseBtn);
+    }
+  }
+
   x.onended = () => {
+
+    if(pauseBtn){
+      pauseBtn.remove();
+    }
 
     if(state.repeat > 0){
 
