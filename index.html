@@ -279,79 +279,7 @@ return `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${a.g}.mp3`;
 
 }
 
-function play(a){
 
-  if(state.audio){
-    state.audio.pause();
-    state.audio.currentTime = 0;
-    state.audio = null;
-  }
-
-  const x = new Audio();
-  state.audio = x;
-
-  x.src = audioUrl(a);
-  x.preload = 'auto';
-  x.playbackRate = state.speed;
-
-  let pauseBtn = document.getElementById('pauseBtn');
-
-  if(!pauseBtn){
-
-    const listenBtn = [...document.querySelectorAll('button')]
-      .find(b => b.textContent.includes('Listen'));
-
-    if(listenBtn){
-
-      pauseBtn = document.createElement('button');
-
-      pauseBtn.id = 'pauseBtn';
-      pauseBtn.textContent = '⏸ Pause';
-      pauseBtn.className = listenBtn.className;
-
-      pauseBtn.onclick = () => {
-
-        if(!state.audio) return;
-
-        if(state.audio.paused){
-          state.audio.play();
-          pauseBtn.textContent = '⏸ Pause';
-        }else{
-          state.audio.pause();
-          pauseBtn.textContent = '▶ Continue';
-        }
-
-      };
-
-      listenBtn.after(pauseBtn);
-    }
-  }
-
- x.onended = () => {
-
-    if(pauseBtn){
-      pauseBtn.remove();
-    }
-
-  };
-
-  x.onerror = () => {
-
-    console.error('Audio error:', x.error);
-    alert('Audio se ne može učitati.');
-
-  };
-
-  x.play()
-    .then(() => {
-      console.log('Audio started:', x.src);
-    })
-    .catch(err => {
-      console.error('Audio play error:', err);
-      alert('Pritisni Listen još jednom.');
-    });
-
-}
 
 
 function mark(){
@@ -562,7 +490,7 @@ function renderFollow(){
     selectSurah();
     render();
 
-    await new Promise(res => {
+     new Promise(res => {
 
       const a = getA();
       const x = new Audio(audioUrl(a));
