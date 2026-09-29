@@ -482,7 +482,14 @@ $('repeat').onclick=()=>{
 
 $('whole').onclick=()=>playWhole();
 
-$('prev').onclick=()=>{
+  $('prev').onclick=()=>{
+    if(state.ayah > 1){
+        state.ayah--;
+        selectSurah();
+        render();
+        play(getS().ayahs[state.ayah-1]);
+    }
+};
 
 if(state.ayah>1){
 
