@@ -164,7 +164,8 @@ const app=$('app');
 
 async function init(){  
 
-const r=await fetch('data.json');
+const r=await fetch('./data.json?cache=' + Date.now());
+if(!r.ok) throw new Error('data.json HTTP ' + r.status);
 
 state.data=await r.json();
 const sr=await fetch('special.json');
