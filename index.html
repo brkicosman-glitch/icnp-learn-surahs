@@ -416,6 +416,7 @@ ${a.n}/${s.ayahs.length}
 <div class="controls">
 
 <button id="listen">▶ Listen</button>
+<button class="alt" id="pause">⏸ Pause</button>
 
 <button class="alt" id="repeat">
 🔁 Repeat 3×
@@ -463,17 +464,20 @@ style="width:${Math.round(a.n/s.ayahs.length*100)}%">
 `;
 
 $('listen').onclick=()=>{
-
-state.repeat=0;
-play(a);
-
+  state.repeat=0;
+  play(a);
 };
 
-$('repeat').onclick=()=>{
+$('pause').onclick=()=>{
+  if(state.audio){
+    state.audio.pause();
+    console.log('Audio paused');
+  }
+};
 
-state.repeat=2;
-play(a);
-
+$('#repeat').onclick=()=>{
+  state.repeat=2;
+  play(a);
 };
 
 $('whole').onclick=()=>playWhole();
