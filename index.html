@@ -327,15 +327,10 @@ function play(a){
     }
   }
 
-  x.onended = () => {
+ x.onended = () => {
 
     if(pauseBtn){
       pauseBtn.remove();
-    }
-
-    if(state.repeat > 0){
-      state.repeat--;
-      play(a);
     }
 
   };
