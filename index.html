@@ -181,59 +181,49 @@ render();
 }
 
 function fillSurahs(){
-    const allowedIds = [1,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114
-];
-  function fillSpecial(){
+
+  const allowedIds = [
+    1,93,94,95,96,97,98,99,100,101,102,103,104,
+    105,106,107,108,109,110,111,112,113,114
+  ];
+
+  document.querySelector("#surah").innerHTML =
+    state.data.surahs
+      .filter(s => allowedIds.includes(Number(s.id)))
+      .map(s => `
+        <option value="${s.id}">
+          ${s.id}. ${s.name} — ${s.arabicName}
+        </option>
+      `)
+      .join("");
+
+  $('#surah').value = state.surah;
+}
+
+function fillSpecial(){
+
   const el = $('#special');
   if (!el) return;
 
-  const items = state.special.special || [];
+  const items = state.special?.special || [];
 
   el.innerHTML = items.map(x =>
     `<option value="${x.id}">${x.name}</option>`
   ).join('');
 }
-  
-document.querySelector("#surah").innerHTML =
-    state.data.surahs
-        .filter(s => allowedIds.includes(Number(s.id)))
-        .map(s => `
-            <option value="${s.id}">
-                ${s.id}. ${s.name} — ${s.arabicName}
-            </option>
-        `)
-        .join("");
 
-$('#surah').value = state.surah;
+function selectSurah(){
 
-}
+  const s = getS();
 
-function fillSpecial(){
-  const el = document.getElementById('special');
-  const items = state.special.special;
+  $('ayah').innerHTML =
+    s.ayahs.map(a =>
+      `<option value="${a.n}">
+        Ayah ${a.n}
+      </option>`
+    ).join('');
 
-  if (!el || !items) return;
-
-  let html = '';
-
-  for (const x of items) {
-    html += '<option value="' + x.id + '">' + x.name + '</option>';
-  }
-
-  el.innerHTML = html;
-}
-
-const s=getS();
-
-$('ayah').innerHTML=
-s.ayahs.map(a=>
-`<option value="${a.n}">
-Ayah ${a.n}
-</option>`
-).join('');
-
-$('ayah').value=state.ayah;
-
+  $('ayah').value = state.ayah;
 }
 
 function getS(){
