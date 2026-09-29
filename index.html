@@ -182,7 +182,16 @@ render();
 function fillSurahs(){
     const allowedIds = [1,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114
 ];
-  fillSpecial();
+  function fillSpecial(){
+  const el = $('#special');
+  if (!el) return;
+
+  const items = state.special.special || [];
+
+  el.innerHTML = items.map(x =>
+    `<option value="${x.id}">${x.name}</option>`
+  ).join('');
+}
   
 document.querySelector("#surah").innerHTML =
     state.data.surahs
