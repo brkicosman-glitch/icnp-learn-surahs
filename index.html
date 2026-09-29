@@ -163,7 +163,7 @@ const app=$('app');
 
 async function init(){
 
-const r=await fetch('https://raw.githubusercontent.com/brkicosman-glitch/icnp-learn-surahs/main/data.json');
+const r=await fetch('data.json');
 if(!r.ok) throw new Error('data.json HTTP ' + r.status);
 
 state.data=await r.json();
