@@ -186,6 +186,18 @@ render();
 }
 
 function fillSurahs(){
+  const select = document.querySelector('#surah');
+
+  if(!select || !state.data || !state.data.surahs) return;
+
+  select.innerHTML = state.data.surahs.map(s => `
+    <option value="${s.id}">
+      ${s.id}. ${s.name} — ${s.arabicName}
+    </option>
+  `).join('');
+
+  select.value = state.surah;
+}
 
 const allowedIds = Array.from({length: 114}, (_, i) => i + 1);
 
