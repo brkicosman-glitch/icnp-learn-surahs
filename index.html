@@ -525,33 +525,38 @@ state.audio.playbackRate=state.speed;
 
 async function playWhole(){
 
-for(
-let i=state.ayah;
-i<=getS().ayahs.length;
-i++
-){
+  if(state.audio){
+    state.audio.pause();
+    state.audio.currentTime = 0;
+    state.audio = null;
+  }
 
-state.ayah=i;
+  for(
+    let i = state.ayah;
+    i <= getS().ayahs.length;
+    i++
+  ){
 
-selectSurah();
-render();
+    state.ayah = i;
 
-await new Promise(res=>{
+    selectSurah();
+    render();
 
-const a=getA();
+    await new Promise(res => {
 
-const x=new Audio(audioUrl(a));
+      const a = getA();
+      const x = new Audio(audioUrl(a));
 
-state.audio=x;
+      state.audio = x;
 
-x.playbackRate=state.speed;
+      x.playbackRate = state.speed;
 
-x.onended=res;
+      x.onended = res;
 
-x.play().catch(res);
+      x.play().catch(res);
 
-});
-
+    });
+  }
 }
 
 }
