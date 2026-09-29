@@ -202,12 +202,10 @@ function fillSurahs(){
 
 function fillSpecial(){
 
-  const el = $('#special');
+  const el = document.querySelector('#special');
   if (!el) return;
 
-  const items = state.special?.special || [];
-
-  el.innerHTML = items.map(x =>
+  el.innerHTML = state.special.special.map(x =>
     `<option value="${x.id}">${x.name}</option>`
   ).join('');
 }
