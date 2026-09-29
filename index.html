@@ -208,15 +208,6 @@ $('#surah').value = state.surah;
 
 }
 
- function fillSpecial(){
-  const el = $('#special');
-  if (!el) return;
-
-  const items = state.special?.special || [];
-  el.innerHTML = items.map(x =>
-    `<option value="${x.id}">${x.name}</option>`
-  ).join('');
-}
 function selectSurah(){
 
 const s=getS();
