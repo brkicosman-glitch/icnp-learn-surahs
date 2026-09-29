@@ -199,9 +199,12 @@ $('#surah').value = state.surah;
 
 }
 
-  function fillSpecial(){
+ function fillSpecial(){
+  const el = $('#special');
+  if (!el) return;
+
   const items = state.special?.special || [];
-  $('#special').innerHTML = items.map(x =>
+  el.innerHTML = items.map(x =>
     `<option value="${x.id}">${x.name}</option>`
   ).join('');
 }
